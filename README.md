@@ -1,24 +1,34 @@
 # UVis - Unity Visualization Runtime
 
-A C# Vega-Lite style visualization runtime for Unity. Parse JSON specifications and render charts (bar, line, point) natively without JavaScript dependencies.
+A C# Vega-Lite style visualization runtime for Unity. Parse JSON specifications and render charts natively without JavaScript dependencies.
 
 ## Features
 
 - **Declarative JSON Specifications**: Use Vega-Lite style syntax to define charts
 - **Multiple Chart Types**: Bar, Line, and Point (scatter) marks
+- **Stacked & Grouped Bars**: Color-encoded stacking or side-by-side grouping
+- **Color Scale Mapping**: Automatic ordinal color palette for categorical data
 - **Dual Render Modes**: Canvas 2D (UI-based) and World Space 3D
+- **True 3D Bar Charts**: X/Y/Z encoding for 3D grid layouts
 - **Data Transforms**: Filter, aggregate, sort, and bin operations
 - **Scales**: Linear, logarithmic, and band (categorical) scales
 - **Axes & Legends**: Automatic axis generation with customizable styling
-- **Editor Integration**: Custom inspector with JSON editing and templates
+- **Editor Integration**: Custom inspector with JSON editing and quick templates
 
 ## Installation
 
-1. Open Unity Package Manager
-2. Click "+" → "Add package from disk..."
-3. Navigate to the package folder and select `package.json`
+### Via Git URL (Recommended)
 
-Or add to your `manifest.json`:
+1. Open **Window → Package Manager**
+2. Click **+** → **Add package from git URL**
+3. Enter:
+   ```
+   https://github.com/Stlouislee/vege-unity.git
+   ```
+
+### Via Local Folder
+
+Add to your `manifest.json`:
 ```json
 {
   "dependencies": {
@@ -38,11 +48,12 @@ Or add to your `manifest.json`:
 1. Add an empty GameObject to your scene
 2. Add the `VegaContainer` component (UVis → Vega Container)
 3. Select a render mode (Canvas2D or WorldSpace3D)
-4. Paste a JSON specification or select a template from the inspector
-5. Click "Render"
+4. Select a template from **Quick Templates** dropdown or paste custom JSON
+5. Click **"Render"**
 
-## JSON Specification Format
+## JSON Specification Examples
 
+### Basic Bar Chart
 ```json
 {
   "data": {
@@ -62,21 +73,44 @@ Or add to your `manifest.json`:
 }
 ```
 
-### Supported Properties
+### Stacked Bar Chart
+```json
+{
+  "encoding": {
+    "x": {"field": "category", "type": "ordinal"},
+    "y": {"field": "value", "type": "quantitative"},
+    "color": {"field": "series", "type": "nominal"}
+  }
+}
+```
 
-**Mark Types**: `bar`, `line`, `point`
+### Grouped Bar Chart
+```json
+{
+  "encoding": {
+    "x": {"field": "category", "type": "ordinal"},
+    "y": {"field": "value", "type": "quantitative", "stack": null},
+    "color": {"field": "series", "type": "nominal"}
+  }
+}
+```
 
-**Field Types**: `quantitative`, `ordinal`, `nominal`
+## Supported Properties
 
-**Scale Types**: `linear`, `log`, `band`
+| Property | Options |
+|----------|---------|
+| **Mark Types** | `bar`, `line`, `point` |
+| **Field Types** | `quantitative`, `ordinal`, `nominal`, `temporal` |
+| **Scale Types** | `linear`, `log`, `band` |
+| **Encoding Channels** | `x`, `y`, `z` (3D), `color`, `size` |
+| **Stack Modes** | `"zero"` (default), `null` (grouped) |
 
-**Encoding Channels**: `x`, `y`, `color`, `size`
+### Transforms
 
-**Transforms**:
 - `filter`: Expression filtering (e.g., `"datum.value > 10"`)
-- `aggregate`: Group by with sum/mean/count
+- `aggregate`: Group by with sum/mean/count/min/max
 - `sort`: Sort by field ascending/descending
-- `bin`: Histogram binning
+- `bin`: Histogram binning with `maxbins` or `step`
 
 ## API Usage
 
@@ -111,8 +145,13 @@ container.OnChartRendered += () => Debug.Log("Chart rendered!");
 
 ## Samples
 
-Import samples from the Package Manager → UVis → Samples:
-- **Basic Charts**: Bar, line, and scatter plot examples
+Quick Templates available in the Inspector dropdown:
+- **Bar Chart** - Basic categorical bar chart
+- **Stacked Bar Chart** - Color-stacked bars
+- **Grouped Bar Chart** - Side-by-side bars with `stack: null`
+- **Color Scale Demo** - Ordinal color mapping
+- **Line Chart** - Time series line
+- **Scatter Plot** - Point mark visualization
 
 ## License
 
