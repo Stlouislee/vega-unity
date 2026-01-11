@@ -1,0 +1,88 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Grouped Bar Chart - Quarterly Sales by Category",
+    "description": "Bars grouped side-by-side for each category",
+    "width": 400,
+    "height": 300,
+    "padding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 40,
+        "left": 60
+    },
+    "data": {
+        "values": [
+            {
+                "category": "A",
+                "quarter": "Q1",
+                "sales": 30
+            },
+            {
+                "category": "A",
+                "quarter": "Q2",
+                "sales": 45
+            },
+            {
+                "category": "A",
+                "quarter": "Q3",
+                "sales": 35
+            },
+            {
+                "category": "B",
+                "quarter": "Q1",
+                "sales": 50
+            },
+            {
+                "category": "B",
+                "quarter": "Q2",
+                "sales": 40
+            },
+            {
+                "category": "B",
+                "quarter": "Q3",
+                "sales": 55
+            },
+            {
+                "category": "C",
+                "quarter": "Q1",
+                "sales": 25
+            },
+            {
+                "category": "C",
+                "quarter": "Q2",
+                "sales": 60
+            },
+            {
+                "category": "C",
+                "quarter": "Q3",
+                "sales": 45
+            }
+        ]
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "category",
+            "type": "ordinal",
+            "axis": {
+                "title": "Category",
+                "labelColor": "#333333",
+                "tickCount": 3
+            }
+        },
+        "y": {
+            "field": "sales",
+            "type": "quantitative",
+            "stack": null,
+            "axis": {
+                "title": "Sales",
+                "labelColor": "#333333",
+                "tickCount": 5
+            }
+        },
+        "color": {
+            "field": "quarter",
+            "type": "nominal"
+        }
+    }
+}

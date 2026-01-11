@@ -1,0 +1,108 @@
+{
+    "data": {
+        "values": [
+            {
+                "category": "A",
+                "series": "Q1",
+                "value": 30
+            },
+            {
+                "category": "A",
+                "series": "Q2",
+                "value": 25
+            },
+            {
+                "category": "A",
+                "series": "Q3",
+                "value": 40
+            },
+            {
+                "category": "B",
+                "series": "Q1",
+                "value": 50
+            },
+            {
+                "category": "B",
+                "series": "Q2",
+                "value": 35
+            },
+            {
+                "category": "B",
+                "series": "Q3",
+                "value": 45
+            },
+            {
+                "category": "C",
+                "series": "Q1",
+                "value": 40
+            },
+            {
+                "category": "C",
+                "series": "Q2",
+                "value": 60
+            },
+            {
+                "category": "C",
+                "series": "Q3",
+                "value": 30
+            },
+            {
+                "category": "D",
+                "series": "Q1",
+                "value": 25
+            },
+            {
+                "category": "D",
+                "series": "Q2",
+                "value": 45
+            },
+            {
+                "category": "D",
+                "series": "Q3",
+                "value": 55
+            }
+        ]
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "category",
+            "type": "ordinal",
+            "scale": {
+                "type": "band",
+                "paddingInner": 0.1
+            }
+        },
+        "y": {
+            "field": "value",
+            "type": "quantitative",
+            "scale": {
+                "type": "linear"
+            }
+        },
+        "color": {
+            "field": "series",
+            "type": "nominal"
+        }
+    },
+    "width": 640,
+    "height": 400,
+    "padding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 40,
+        "left": 60
+    },
+    "axis": {
+        "x": {
+            "tickCount": 5,
+            "labelAngle": 0,
+            "title": "Category"
+        },
+        "y": {
+            "tickCount": 5,
+            "title": "Value (Stacked)",
+            "grid": true
+        }
+    }
+}

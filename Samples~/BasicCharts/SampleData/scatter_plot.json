@@ -1,0 +1,98 @@
+{
+    "data": {
+        "values": [
+            {
+                "x": 10,
+                "y": 20,
+                "size": 5,
+                "category": "A"
+            },
+            {
+                "x": 25,
+                "y": 45,
+                "size": 10,
+                "category": "B"
+            },
+            {
+                "x": 40,
+                "y": 35,
+                "size": 7,
+                "category": "A"
+            },
+            {
+                "x": 55,
+                "y": 60,
+                "size": 12,
+                "category": "B"
+            },
+            {
+                "x": 70,
+                "y": 30,
+                "size": 8,
+                "category": "A"
+            },
+            {
+                "x": 85,
+                "y": 75,
+                "size": 15,
+                "category": "B"
+            },
+            {
+                "x": 30,
+                "y": 55,
+                "size": 9,
+                "category": "A"
+            },
+            {
+                "x": 65,
+                "y": 40,
+                "size": 11,
+                "category": "B"
+            }
+        ]
+    },
+    "mark": "point",
+    "encoding": {
+        "x": {
+            "field": "x",
+            "type": "quantitative",
+            "scale": {
+                "type": "linear"
+            },
+            "title": "X Value"
+        },
+        "y": {
+            "field": "y",
+            "type": "quantitative",
+            "scale": {
+                "type": "linear"
+            },
+            "title": "Y Value"
+        },
+        "size": {
+            "field": "size"
+        },
+        "color": {
+            "value": "#e15759"
+        }
+    },
+    "width": 640,
+    "height": 400,
+    "padding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 40,
+        "left": 60
+    },
+    "axis": {
+        "x": {
+            "tickCount": 5,
+            "title": "X Axis"
+        },
+        "y": {
+            "tickCount": 5,
+            "title": "Y Axis",
+            "grid": true
+        }
+    }
+}

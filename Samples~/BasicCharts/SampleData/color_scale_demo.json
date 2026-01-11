@@ -1,0 +1,94 @@
+{
+    "data": {
+        "values": [
+            {
+                "month": "Jan",
+                "product": "A",
+                "sales": 120
+            },
+            {
+                "month": "Jan",
+                "product": "B",
+                "sales": 80
+            },
+            {
+                "month": "Jan",
+                "product": "C",
+                "sales": 150
+            },
+            {
+                "month": "Feb",
+                "product": "A",
+                "sales": 140
+            },
+            {
+                "month": "Feb",
+                "product": "B",
+                "sales": 95
+            },
+            {
+                "month": "Feb",
+                "product": "C",
+                "sales": 130
+            },
+            {
+                "month": "Mar",
+                "product": "A",
+                "sales": 160
+            },
+            {
+                "month": "Mar",
+                "product": "B",
+                "sales": 110
+            },
+            {
+                "month": "Mar",
+                "product": "C",
+                "sales": 145
+            }
+        ]
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "month",
+            "type": "ordinal",
+            "scale": {
+                "type": "band",
+                "paddingInner": 0.2
+            }
+        },
+        "y": {
+            "field": "sales",
+            "type": "quantitative",
+            "scale": {
+                "type": "linear",
+                "zero": true
+            }
+        },
+        "color": {
+            "field": "product",
+            "type": "nominal"
+        }
+    },
+    "width": 640,
+    "height": 400,
+    "padding": {
+        "top": 20,
+        "right": 100,
+        "bottom": 40,
+        "left": 60
+    },
+    "axis": {
+        "x": {
+            "tickCount": 3,
+            "labelAngle": 0,
+            "title": "Month"
+        },
+        "y": {
+            "tickCount": 5,
+            "title": "Sales",
+            "grid": true
+        }
+    }
+}

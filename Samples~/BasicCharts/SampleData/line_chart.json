@@ -1,0 +1,96 @@
+{
+    "data": {
+        "values": [
+            {
+                "month": 1,
+                "sales": 120
+            },
+            {
+                "month": 2,
+                "sales": 180
+            },
+            {
+                "month": 3,
+                "sales": 150
+            },
+            {
+                "month": 4,
+                "sales": 220
+            },
+            {
+                "month": 5,
+                "sales": 280
+            },
+            {
+                "month": 6,
+                "sales": 250
+            },
+            {
+                "month": 7,
+                "sales": 310
+            },
+            {
+                "month": 8,
+                "sales": 295
+            },
+            {
+                "month": 9,
+                "sales": 340
+            },
+            {
+                "month": 10,
+                "sales": 380
+            },
+            {
+                "month": 11,
+                "sales": 420
+            },
+            {
+                "month": 12,
+                "sales": 450
+            }
+        ]
+    },
+    "mark": "line",
+    "encoding": {
+        "x": {
+            "field": "month",
+            "type": "quantitative",
+            "scale": {
+                "type": "linear"
+            },
+            "title": "Month"
+        },
+        "y": {
+            "field": "sales",
+            "type": "quantitative",
+            "scale": {
+                "type": "linear",
+                "zero": false
+            },
+            "title": "Sales ($K)"
+        },
+        "color": {
+            "value": "#f28e2c"
+        }
+    },
+    "width": 640,
+    "height": 400,
+    "padding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 40,
+        "left": 60
+    },
+    "axis": {
+        "x": {
+            "tickCount": 12,
+            "title": "Month"
+        },
+        "y": {
+            "tickCount": 5,
+            "title": "Sales",
+            "grid": true
+        }
+    }
+}

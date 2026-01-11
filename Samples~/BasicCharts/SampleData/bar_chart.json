@@ -1,0 +1,67 @@
+{
+    "data": {
+        "values": [
+            {
+                "category": "A",
+                "value": 30
+            },
+            {
+                "category": "B",
+                "value": 80
+            },
+            {
+                "category": "C",
+                "value": 45
+            },
+            {
+                "category": "D",
+                "value": 60
+            },
+            {
+                "category": "E",
+                "value": 25
+            }
+        ]
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "category",
+            "type": "ordinal",
+            "scale": {
+                "type": "band",
+                "paddingInner": 0.1
+            }
+        },
+        "y": {
+            "field": "value",
+            "type": "quantitative",
+            "scale": {
+                "type": "linear"
+            }
+        },
+        "color": {
+            "value": "#4e79a7"
+        }
+    },
+    "width": 640,
+    "height": 400,
+    "padding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 40,
+        "left": 60
+    },
+    "axis": {
+        "x": {
+            "tickCount": 5,
+            "labelAngle": 0,
+            "title": "Category"
+        },
+        "y": {
+            "tickCount": 5,
+            "title": "Value",
+            "grid": true
+        }
+    }
+}
