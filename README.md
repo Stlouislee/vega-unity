@@ -95,6 +95,23 @@ Add to your `manifest.json`:
 }
 ```
 
+### 3D Bar Chart
+Use `z` encoding to create true 3D bar charts with X/Z floor grid and Y height.
+Requires **WorldSpace3D** render mode.
+
+```json
+{
+  "encoding": {
+    "x": {"field": "region", "type": "ordinal"},
+    "z": {"field": "quarter", "type": "ordinal"},
+    "y": {"field": "sales", "type": "quantitative"},
+    "color": {"field": "quarter", "type": "nominal"}
+  }
+}
+```
+
+> See [3D Bar Chart Schema](../../3D_BAR_CHART_SCHEMA.md) for full documentation.
+
 ## Supported Properties
 
 | Property | Options |
@@ -149,6 +166,7 @@ Quick Templates available in the Inspector dropdown:
 - **Bar Chart** - Basic categorical bar chart
 - **Stacked Bar Chart** - Color-stacked bars
 - **Grouped Bar Chart** - Side-by-side bars with `stack: null`
+- **3D Bar Chart** - True 3D with X/Z floor grid (requires WorldSpace3D)
 - **Color Scale Demo** - Ordinal color mapping
 - **Line Chart** - Time series line
 - **Scatter Plot** - Point mark visualization

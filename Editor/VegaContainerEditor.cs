@@ -193,6 +193,7 @@ namespace UVis.Editor
             "Bar Chart",
             "Stacked Bar Chart",
             "Grouped Bar Chart",
+            "3D Bar Chart",
             "Color Scale Demo",
             "Line Chart",
             "Scatter Plot",
@@ -267,6 +268,31 @@ namespace UVis.Editor
   },
   ""width"": 640,
   ""height"": 400
+}",
+            // 3D Bar Chart (requires WorldSpace3D mode)
+            @"{
+  ""title"": ""3D Bar Chart - Sales by Region and Quarter"",
+  ""data"": {
+    ""values"": [
+      {""region"": ""North"", ""quarter"": ""Q1"", ""sales"": 120},
+      {""region"": ""North"", ""quarter"": ""Q2"", ""sales"": 180},
+      {""region"": ""South"", ""quarter"": ""Q1"", ""sales"": 80},
+      {""region"": ""South"", ""quarter"": ""Q2"", ""sales"": 140},
+      {""region"": ""East"", ""quarter"": ""Q1"", ""sales"": 100},
+      {""region"": ""East"", ""quarter"": ""Q2"", ""sales"": 120},
+      {""region"": ""West"", ""quarter"": ""Q1"", ""sales"": 60},
+      {""region"": ""West"", ""quarter"": ""Q2"", ""sales"": 100}
+    ]
+  },
+  ""mark"": ""bar"",
+  ""encoding"": {
+    ""x"": {""field"": ""region"", ""type"": ""ordinal""},
+    ""z"": {""field"": ""quarter"", ""type"": ""ordinal""},
+    ""y"": {""field"": ""sales"", ""type"": ""quantitative""},
+    ""color"": {""field"": ""quarter"", ""type"": ""nominal""}
+  },
+  ""width"": 400,
+  ""height"": 300
 }",
             // Color Scale Demo
             @"{

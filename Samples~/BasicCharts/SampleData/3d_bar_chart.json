@@ -1,0 +1,131 @@
+{
+    "$schema": "https://uvis.dev/schema/3d-bar-chart/v1.json",
+    "title": "3D Bar Chart - Sales by Region and Quarter",
+    "description": "True 3D bar chart with X/Z floor grid and Y height",
+    "width": 400,
+    "height": 300,
+    "padding": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+    },
+    "data": {
+        "values": [
+            {
+                "region": "North",
+                "quarter": "Q1",
+                "sales": 120
+            },
+            {
+                "region": "North",
+                "quarter": "Q2",
+                "sales": 180
+            },
+            {
+                "region": "North",
+                "quarter": "Q3",
+                "sales": 150
+            },
+            {
+                "region": "North",
+                "quarter": "Q4",
+                "sales": 200
+            },
+            {
+                "region": "South",
+                "quarter": "Q1",
+                "sales": 80
+            },
+            {
+                "region": "South",
+                "quarter": "Q2",
+                "sales": 140
+            },
+            {
+                "region": "South",
+                "quarter": "Q3",
+                "sales": 100
+            },
+            {
+                "region": "South",
+                "quarter": "Q4",
+                "sales": 160
+            },
+            {
+                "region": "East",
+                "quarter": "Q1",
+                "sales": 100
+            },
+            {
+                "region": "East",
+                "quarter": "Q2",
+                "sales": 120
+            },
+            {
+                "region": "East",
+                "quarter": "Q3",
+                "sales": 90
+            },
+            {
+                "region": "East",
+                "quarter": "Q4",
+                "sales": 130
+            },
+            {
+                "region": "West",
+                "quarter": "Q1",
+                "sales": 60
+            },
+            {
+                "region": "West",
+                "quarter": "Q2",
+                "sales": 100
+            },
+            {
+                "region": "West",
+                "quarter": "Q3",
+                "sales": 80
+            },
+            {
+                "region": "West",
+                "quarter": "Q4",
+                "sales": 110
+            }
+        ]
+    },
+    "mark": "bar",
+    "encoding": {
+        "x": {
+            "field": "region",
+            "type": "ordinal",
+            "axis": {
+                "title": "Region",
+                "labelColor": "#333333",
+                "tickCount": 4
+            }
+        },
+        "z": {
+            "field": "quarter",
+            "type": "ordinal",
+            "axis": {
+                "title": "Quarter",
+                "labelColor": "#333333",
+                "tickCount": 4
+            }
+        },
+        "y": {
+            "field": "sales",
+            "type": "quantitative",
+            "axis": {
+                "title": "Sales ($K)",
+                "labelColor": "#333333",
+                "tickCount": 5
+            }
+        },
+        "color": {
+            "field": "quarter",
+            "type": "nominal"
+        }
+    }
+}
