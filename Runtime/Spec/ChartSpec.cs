@@ -63,7 +63,9 @@ namespace UVis.Spec
         public ChannelSpec z { get; set; }  // Z-axis for true 3D charts
         public ChannelSpec color { get; set; }
         public ChannelSpec size { get; set; }
+        public ChannelSpec shape { get; set; }  // Shape for 3D scatter: sphere, cube, cylinder, capsule, prefab:Name
     }
+
 
     /// <summary>
     /// Channel specification for a single encoding.

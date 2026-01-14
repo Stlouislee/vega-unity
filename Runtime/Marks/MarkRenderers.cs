@@ -88,9 +88,14 @@ namespace UVis.Marks
 
             // Determine if we're doing stacking or grouping
             bool hasColorField = colorChannel?.field != null;
+            bool hasZEncoding = zChannel?.field != null; // 3D charts with Z should NOT stack
             // Check y.stack property: null or empty = no stacking (grouped), "zero"/"center"/"normalize" = stacking
             string stackMode = yChannel.stack;
-            bool isStacked = hasColorField && !string.IsNullOrEmpty(stackMode) && stackMode.ToLower() != "null";
+            // Disable stacking for 3D bar charts with Z encoding
+            bool isStacked = hasColorField 
+                && !hasZEncoding 
+                && !string.IsNullOrEmpty(stackMode) 
+                && stackMode.ToLower() != "null";
             
             // For grouped bars (xOffset), track categories and calculate offset
             Dictionary<string, int> colorIndexMap = new Dictionary<string, int>();
@@ -158,8 +163,9 @@ namespace UVis.Marks
                     barHeight = context.YScale.Map(yVal);
                 }
 
-                // Apply xOffset for grouped bars (non-stacked)
-                if (hasColorField && !isStacked && row.TryGetValue(colorChannel.field, out var colorVal))
+                // Apply xOffset for grouped bars (non-stacked, non-3D with Z)
+                // 3D bar charts with Z encoding use Z position for grouping, not xOffset
+                if (hasColorField && !isStacked && !hasZEncoding && row.TryGetValue(colorChannel.field, out var colorVal))
                 {
                     string colorCategory = colorVal?.ToString() ?? "";
                     if (colorIndexMap.TryGetValue(colorCategory, out int colorIndex))
@@ -533,12 +539,14 @@ namespace UVis.Marks
     }
 
     /// <summary>
-    /// Renders point marks (circles/dots).
+    /// Renders point marks (circles/dots) with 3D scatter plot support.
+    /// Supports shape mapping: sphere, cube, cylinder, capsule, or prefab:PrefabName
     /// </summary>
     public class PointMarkRenderer : IMarkRenderer
     {
         private readonly List<GameObject> _points = new List<GameObject>();
-        private const float DEFAULT_POINT_SIZE = 8f;
+        private const float DEFAULT_POINT_SIZE_2D = 8f;
+        private const float DEFAULT_POINT_SIZE_3D = 0.15f;
 
         public void Render(MarkRenderContext context)
         {
@@ -546,8 +554,10 @@ namespace UVis.Marks
 
             var xChannel = context.Encoding.x;
             var yChannel = context.Encoding.y;
+            var zChannel = context.Encoding.z;
             var colorChannel = context.Encoding.color;
             var sizeChannel = context.Encoding.size;
+            var shapeChannel = context.Encoding.shape;
 
             if (xChannel == null || yChannel == null)
             {
@@ -555,10 +565,40 @@ namespace UVis.Marks
                 return;
             }
 
-            Color defaultColor = Color.white;
+            // Default color
+            Color defaultColor = new Color(0.31f, 0.47f, 0.65f); // #4e79a7
             if (colorChannel?.value != null)
             {
                 ColorUtility.TryParseHtmlString(colorChannel.value, out defaultColor);
+            }
+
+            // Build shape mapping if shape channel exists
+            Dictionary<string, string> shapeMap = new Dictionary<string, string>();
+            List<string> shapeRange = new List<string> { "sphere", "cube", "cylinder", "capsule" };
+            if (shapeChannel?.scale?.range != null)
+            {
+                foreach (var r in shapeChannel.scale.range)
+                {
+                    shapeRange.Add(r.ToString());
+                }
+            }
+            if (shapeChannel?.field != null)
+            {
+                // Build category to shape mapping
+                var categories = new HashSet<string>();
+                foreach (var row in context.Data)
+                {
+                    if (row.TryGetValue(shapeChannel.field, out var catVal))
+                    {
+                        categories.Add(catVal?.ToString() ?? "");
+                    }
+                }
+                int i = 0;
+                foreach (var cat in categories)
+                {
+                    shapeMap[cat] = shapeRange[i % shapeRange.Count];
+                    i++;
+                }
             }
 
             foreach (var row in context.Data)
@@ -571,27 +611,66 @@ namespace UVis.Marks
 
                 float x = context.XScale.Map(xVal);
                 float y = context.YScale.Map(yVal);
+                
+                // Z position for 3D scatter
+                float z = 0;
+                if (context.Is3DMode && zChannel?.field != null && 
+                    row.TryGetValue(zChannel.field, out var zVal) && context.ZScale != null)
+                {
+                    z = context.ZScale.Map(zVal);
+                }
 
                 // Get size for this point
-                float pointSize = DEFAULT_POINT_SIZE;
+                float pointSize = context.Is3DMode ? DEFAULT_POINT_SIZE_3D : DEFAULT_POINT_SIZE_2D;
                 if (sizeChannel?.field != null && row.TryGetValue(sizeChannel.field, out var sizeVal))
                 {
-                    pointSize = (float)Convert.ToDouble(sizeVal);
+                    float rawSize = (float)Convert.ToDouble(sizeVal);
+                    // Scale size based on range if defined
+                    if (sizeChannel.scale?.range != null && sizeChannel.scale.range.Count >= 2)
+                    {
+                        float minSize = sizeChannel.scale.range[0];
+                        float maxSize = sizeChannel.scale.range[1];
+                        // Normalize and map to range (simplified)
+                        pointSize = Mathf.Lerp(minSize, maxSize, Mathf.Clamp01(rawSize / 100f));
+                    }
+                    else
+                    {
+                        pointSize = rawSize * (context.Is3DMode ? 0.01f : 1f);
+                    }
                 }
                 else if (sizeChannel?.value != null && float.TryParse(sizeChannel.value, out float sv))
                 {
                     pointSize = sv;
                 }
 
+                // Get color for this point
                 Color pointColor = defaultColor;
-                if (colorChannel?.field != null && row.TryGetValue(colorChannel.field, out _))
+                if (colorChannel?.field != null && row.TryGetValue(colorChannel.field, out var colorFieldVal))
                 {
-                    // TODO: Implement color scale mapping
+                    if (context.ColorScale != null)
+                    {
+                        pointColor = context.ColorScale.Map(colorFieldVal);
+                    }
+                }
+
+                // Get shape for this point
+                string shapeName = "sphere";
+                if (shapeChannel?.field != null && row.TryGetValue(shapeChannel.field, out var shapeFieldVal))
+                {
+                    string cat = shapeFieldVal?.ToString() ?? "";
+                    if (shapeMap.TryGetValue(cat, out var mappedShape))
+                    {
+                        shapeName = mappedShape;
+                    }
+                }
+                else if (shapeChannel?.value != null)
+                {
+                    shapeName = shapeChannel.value;
                 }
 
                 if (context.Is3DMode)
                 {
-                    CreatePoint3D(context, x, y, pointSize, pointColor);
+                    CreatePoint3D(context, x, y, z, pointSize, pointColor, shapeName);
                 }
                 else
                 {
@@ -603,7 +682,7 @@ namespace UVis.Marks
         private void CreatePoint2D(MarkRenderContext context, float x, float y, float size, Color color)
         {
             var go = new GameObject("Point");
-            go.transform.SetParent(context.PlotArea, false);
+            go.transform.SetParent(context.PlotRoot, false);
 
             var rectTransform = go.AddComponent<RectTransform>();
             rectTransform.anchorMin = Vector2.zero;
@@ -619,22 +698,80 @@ namespace UVis.Marks
             _points.Add(go);
         }
 
-        private void CreatePoint3D(MarkRenderContext context, float x, float y, float size, Color color)
+        private void CreatePoint3D(MarkRenderContext context, float x, float y, float z, float size, Color color, string shape)
         {
-            var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            go.name = "Point";
-            go.transform.SetParent(context.PlotRoot, false);
-
-            // Position (x,y) is already in World Units, NO scaling needed
-            go.transform.localPosition = new Vector3(x, y, 0);
+            GameObject go;
             
-            // Size is in pixels (e.g. 8), so we MUST scale it to get a reasonable World Unit size
-            go.transform.localScale = Vector3.one * size * context.PixelScale;
+            // Handle prefab or primitive shapes
+            if (shape.StartsWith("prefab:"))
+            {
+                string prefabName = shape.Substring(7);
+                var prefab = Resources.Load<GameObject>(prefabName);
+                if (prefab != null)
+                {
+                    go = UnityEngine.Object.Instantiate(prefab);
+                    go.name = $"Point_{prefabName}";
+                }
+                else
+                {
+                    Debug.LogWarning($"[UVis] Prefab not found: {prefabName}, using sphere");
+                    go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    go.name = "Point";
+                }
+            }
+            else
+            {
+                PrimitiveType primitiveType = shape.ToLower() switch
+                {
+                    "cube" => PrimitiveType.Cube,
+                    "cylinder" => PrimitiveType.Cylinder,
+                    "capsule" => PrimitiveType.Capsule,
+                    _ => PrimitiveType.Sphere
+                };
+                go = GameObject.CreatePrimitive(primitiveType);
+                go.name = $"Point_{shape}";
+            }
+            
+            go.transform.SetParent(context.PlotRoot, false);
+            go.transform.localPosition = new Vector3(x, y, z);
+            go.transform.localScale = Vector3.one * size;
 
+            // Apply material
             var renderer = go.GetComponent<Renderer>();
-            var material = new Material(Shader.Find("Standard"));
-            material.color = color;
-            renderer.material = material;
+            if (renderer != null)
+            {
+                Material material;
+                if (context.DefaultMaterial != null)
+                {
+                    material = new Material(context.DefaultMaterial);
+                }
+                else
+                {
+                    // Try multiple shader names for compatibility
+                    Shader shader = Shader.Find("Standard");
+                    if (shader == null) shader = Shader.Find("Universal Render Pipeline/Lit");
+                    if (shader == null) shader = Shader.Find("HDRP/Lit");
+                    if (shader == null) shader = Shader.Find("Unlit/Color");
+                    if (shader == null) shader = Shader.Find("Sprites/Default");
+                    
+                    if (shader != null)
+                    {
+                        material = new Material(shader);
+                    }
+                    else
+                    {
+                        // Last resort: use primitive's default material
+                        material = new Material(renderer.sharedMaterial);
+                    }
+                }
+                material.color = color;
+                // Also set _BaseColor for URP/HDRP compatibility
+                if (material.HasProperty("_BaseColor"))
+                {
+                    material.SetColor("_BaseColor", color);
+                }
+                renderer.material = material;
+            }
 
             // Remove collider for performance
             var collider = go.GetComponent<Collider>();
@@ -665,3 +802,4 @@ namespace UVis.Marks
         }
     }
 }
+

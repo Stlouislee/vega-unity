@@ -194,6 +194,7 @@ namespace UVis.Editor
             "Stacked Bar Chart",
             "Grouped Bar Chart",
             "3D Bar Chart",
+            "3D Scatter Plot",
             "Color Scale Demo",
             "Line Chart",
             "Scatter Plot",
@@ -269,30 +270,69 @@ namespace UVis.Editor
   ""width"": 640,
   ""height"": 400
 }",
-            // 3D Bar Chart (requires WorldSpace3D mode)
+            // 3D Bar Chart (requires WorldSpace3D mode) - 5x6 grid
             @"{
-  ""title"": ""3D Bar Chart - Sales by Region and Quarter"",
+  ""title"": ""3D Bar Chart - Monthly Sales by Category"",
   ""data"": {
     ""values"": [
-      {""region"": ""North"", ""quarter"": ""Q1"", ""sales"": 120},
-      {""region"": ""North"", ""quarter"": ""Q2"", ""sales"": 180},
-      {""region"": ""South"", ""quarter"": ""Q1"", ""sales"": 80},
-      {""region"": ""South"", ""quarter"": ""Q2"", ""sales"": 140},
-      {""region"": ""East"", ""quarter"": ""Q1"", ""sales"": 100},
-      {""region"": ""East"", ""quarter"": ""Q2"", ""sales"": 120},
-      {""region"": ""West"", ""quarter"": ""Q1"", ""sales"": 60},
-      {""region"": ""West"", ""quarter"": ""Q2"", ""sales"": 100}
+      {""month"": ""Jan"", ""category"": ""Electronics"", ""sales"": 150},
+      {""month"": ""Jan"", ""category"": ""Clothing"", ""sales"": 85},
+      {""month"": ""Jan"", ""category"": ""Food"", ""sales"": 120},
+      {""month"": ""Jan"", ""category"": ""Books"", ""sales"": 45},
+      {""month"": ""Jan"", ""category"": ""Sports"", ""sales"": 70},
+      {""month"": ""Feb"", ""category"": ""Electronics"", ""sales"": 180},
+      {""month"": ""Feb"", ""category"": ""Clothing"", ""sales"": 110},
+      {""month"": ""Feb"", ""category"": ""Food"", ""sales"": 135},
+      {""month"": ""Feb"", ""category"": ""Books"", ""sales"": 55},
+      {""month"": ""Feb"", ""category"": ""Sports"", ""sales"": 85},
+      {""month"": ""Mar"", ""category"": ""Electronics"", ""sales"": 200},
+      {""month"": ""Mar"", ""category"": ""Clothing"", ""sales"": 140},
+      {""month"": ""Mar"", ""category"": ""Food"", ""sales"": 125},
+      {""month"": ""Mar"", ""category"": ""Books"", ""sales"": 60},
+      {""month"": ""Mar"", ""category"": ""Sports"", ""sales"": 110}
     ]
   },
   ""mark"": ""bar"",
   ""encoding"": {
-    ""x"": {""field"": ""region"", ""type"": ""ordinal""},
-    ""z"": {""field"": ""quarter"", ""type"": ""ordinal""},
+    ""x"": {""field"": ""category"", ""type"": ""ordinal""},
+    ""z"": {""field"": ""month"", ""type"": ""ordinal""},
     ""y"": {""field"": ""sales"", ""type"": ""quantitative""},
-    ""color"": {""field"": ""quarter"", ""type"": ""nominal""}
+    ""color"": {""field"": ""category"", ""type"": ""nominal""}
+  },
+  ""width"": 500,
+  ""height"": 350
+}",
+            // 3D Scatter Plot (requires WorldSpace3D mode)
+            @"{
+  ""title"": ""3D Scatter Plot - Particle Distribution"",
+  ""data"": {
+    ""values"": [
+      {""x"": 10, ""y"": 25, ""z"": 15, ""category"": ""A""},
+      {""x"": 35, ""y"": 60, ""z"": 40, ""category"": ""A""},
+      {""x"": 55, ""y"": 30, ""z"": 65, ""category"": ""A""},
+      {""x"": 20, ""y"": 75, ""z"": 30, ""category"": ""A""},
+      {""x"": 70, ""y"": 45, ""z"": 25, ""category"": ""A""},
+      {""x"": 25, ""y"": 50, ""z"": 70, ""category"": ""B""},
+      {""x"": 60, ""y"": 70, ""z"": 35, ""category"": ""B""},
+      {""x"": 40, ""y"": 15, ""z"": 85, ""category"": ""B""},
+      {""x"": 85, ""y"": 55, ""z"": 20, ""category"": ""B""},
+      {""x"": 30, ""y"": 90, ""z"": 45, ""category"": ""B""},
+      {""x"": 5, ""y"": 10, ""z"": 90, ""category"": ""C""},
+      {""x"": 65, ""y"": 95, ""z"": 5, ""category"": ""C""},
+      {""x"": 95, ""y"": 5, ""z"": 95, ""category"": ""C""},
+      {""x"": 45, ""y"": 45, ""z"": 45, ""category"": ""C""}
+    ]
+  },
+  ""mark"": ""point"",
+  ""encoding"": {
+    ""x"": {""field"": ""x"", ""type"": ""quantitative""},
+    ""y"": {""field"": ""y"", ""type"": ""quantitative""},
+    ""z"": {""field"": ""z"", ""type"": ""quantitative""},
+    ""color"": {""field"": ""category"", ""type"": ""nominal""},
+    ""shape"": {""field"": ""category"", ""type"": ""nominal""}
   },
   ""width"": 400,
-  ""height"": 300
+  ""height"": 400
 }",
             // Color Scale Demo
             @"{

@@ -167,6 +167,7 @@ Quick Templates available in the Inspector dropdown:
 - **Stacked Bar Chart** - Color-stacked bars
 - **Grouped Bar Chart** - Side-by-side bars with `stack: null`
 - **3D Bar Chart** - True 3D with X/Z floor grid (requires WorldSpace3D)
+- **3D Scatter Plot** - 3D point cloud with shape mapping (requires WorldSpace3D)
 - **Color Scale Demo** - Ordinal color mapping
 - **Line Chart** - Time series line
 - **Scatter Plot** - Point mark visualization

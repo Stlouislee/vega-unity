@@ -359,7 +359,17 @@ namespace UVis.Core
             var yChannel = spec.encoding?.y;
             var colorChannel = spec.encoding?.color;
             bool hasColorField = colorChannel?.field != null;
-            bool isStackedBarChart = hasColorField && spec.mark?.ToLower() == "bar";
+            // Check stack mode from y.stack property
+            string stackMode = yChannel?.stack;
+            bool hasZEncoding = spec.encoding?.z?.field != null;
+            
+            // 3D bar charts (with Z encoding) should NOT be stacked
+            // Only stack if: has color field, is bar mark, no Z encoding, and stack is not null
+            bool isStackedBarChart = hasColorField 
+                && spec.mark?.ToLower() == "bar" 
+                && !hasZEncoding
+                && !string.IsNullOrEmpty(stackMode) 
+                && stackMode.ToLower() != "null";
             
             if (isStackedBarChart && yChannel != null)
             {

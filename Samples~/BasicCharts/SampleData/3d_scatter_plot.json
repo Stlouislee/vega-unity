@@ -1,0 +1,220 @@
+{
+    "$schema": "https://uvis.dev/schema/3d-scatter-plot/v1.json",
+    "title": "3D Scatter Plot - Particle Distribution",
+    "description": "3D scatter plot with shape and color mapping by category",
+    "width": 400,
+    "height": 400,
+    "padding": {
+        "top": 10,
+        "right": 10,
+        "bottom": 10,
+        "left": 10
+    },
+    "data": {
+        "values": [
+            {
+                "x": 10,
+                "y": 25,
+                "z": 15,
+                "category": "A",
+                "size": 8
+            },
+            {
+                "x": 35,
+                "y": 60,
+                "z": 40,
+                "category": "A",
+                "size": 12
+            },
+            {
+                "x": 55,
+                "y": 30,
+                "z": 65,
+                "category": "A",
+                "size": 6
+            },
+            {
+                "x": 20,
+                "y": 75,
+                "z": 30,
+                "category": "A",
+                "size": 10
+            },
+            {
+                "x": 70,
+                "y": 45,
+                "z": 25,
+                "category": "A",
+                "size": 9
+            },
+            {
+                "x": 45,
+                "y": 85,
+                "z": 55,
+                "category": "A",
+                "size": 11
+            },
+            {
+                "x": 15,
+                "y": 40,
+                "z": 80,
+                "category": "A",
+                "size": 7
+            },
+            {
+                "x": 80,
+                "y": 20,
+                "z": 50,
+                "category": "A",
+                "size": 8
+            },
+            {
+                "x": 25,
+                "y": 50,
+                "z": 70,
+                "category": "B",
+                "size": 10
+            },
+            {
+                "x": 60,
+                "y": 70,
+                "z": 35,
+                "category": "B",
+                "size": 8
+            },
+            {
+                "x": 40,
+                "y": 15,
+                "z": 85,
+                "category": "B",
+                "size": 12
+            },
+            {
+                "x": 85,
+                "y": 55,
+                "z": 20,
+                "category": "B",
+                "size": 6
+            },
+            {
+                "x": 30,
+                "y": 90,
+                "z": 45,
+                "category": "B",
+                "size": 9
+            },
+            {
+                "x": 75,
+                "y": 35,
+                "z": 75,
+                "category": "B",
+                "size": 11
+            },
+            {
+                "x": 50,
+                "y": 65,
+                "z": 10,
+                "category": "B",
+                "size": 7
+            },
+            {
+                "x": 90,
+                "y": 80,
+                "z": 60,
+                "category": "B",
+                "size": 10
+            },
+            {
+                "x": 5,
+                "y": 10,
+                "z": 90,
+                "category": "C",
+                "size": 9
+            },
+            {
+                "x": 65,
+                "y": 95,
+                "z": 5,
+                "category": "C",
+                "size": 8
+            },
+            {
+                "x": 95,
+                "y": 5,
+                "z": 95,
+                "category": "C",
+                "size": 11
+            },
+            {
+                "x": 45,
+                "y": 45,
+                "z": 45,
+                "category": "C",
+                "size": 10
+            },
+            {
+                "x": 12,
+                "y": 88,
+                "z": 22,
+                "category": "C",
+                "size": 7
+            },
+            {
+                "x": 78,
+                "y": 12,
+                "z": 88,
+                "category": "C",
+                "size": 12
+            }
+        ]
+    },
+    "mark": "point",
+    "encoding": {
+        "x": {
+            "field": "x",
+            "type": "quantitative",
+            "axis": {
+                "title": "X Value"
+            }
+        },
+        "y": {
+            "field": "y",
+            "type": "quantitative",
+            "axis": {
+                "title": "Y Value"
+            }
+        },
+        "z": {
+            "field": "z",
+            "type": "quantitative",
+            "axis": {
+                "title": "Z Value"
+            }
+        },
+        "color": {
+            "field": "category",
+            "type": "nominal"
+        },
+        "shape": {
+            "field": "category",
+            "type": "nominal",
+            "scale": {
+                "range": [
+                    "sphere",
+                    "cube",
+                    "cylinder"
+                ]
+            }
+        },
+        "size": {
+            "field": "size",
+            "type": "quantitative",
+            "scale": {
+                "range": [
+                    0.08,
+                    0.2
+                ]
+            }
+        }
+    }
+}

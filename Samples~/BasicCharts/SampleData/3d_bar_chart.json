@@ -1,9 +1,9 @@
 {
     "$schema": "https://uvis.dev/schema/3d-bar-chart/v1.json",
-    "title": "3D Bar Chart - Sales by Region and Quarter",
-    "description": "True 3D bar chart with X/Z floor grid and Y height",
-    "width": 400,
-    "height": 300,
+    "title": "3D Bar Chart - Monthly Sales by Product Category",
+    "description": "5x6 grid showing sales across 5 months and 6 product categories",
+    "width": 500,
+    "height": 350,
     "padding": {
         "top": 10,
         "right": 10,
@@ -13,105 +13,175 @@
     "data": {
         "values": [
             {
-                "region": "North",
-                "quarter": "Q1",
-                "sales": 120
-            },
-            {
-                "region": "North",
-                "quarter": "Q2",
-                "sales": 180
-            },
-            {
-                "region": "North",
-                "quarter": "Q3",
+                "month": "Jan",
+                "category": "Electronics",
                 "sales": 150
             },
             {
-                "region": "North",
-                "quarter": "Q4",
-                "sales": 200
+                "month": "Jan",
+                "category": "Clothing",
+                "sales": 85
             },
             {
-                "region": "South",
-                "quarter": "Q1",
-                "sales": 80
-            },
-            {
-                "region": "South",
-                "quarter": "Q2",
-                "sales": 140
-            },
-            {
-                "region": "South",
-                "quarter": "Q3",
-                "sales": 100
-            },
-            {
-                "region": "South",
-                "quarter": "Q4",
-                "sales": 160
-            },
-            {
-                "region": "East",
-                "quarter": "Q1",
-                "sales": 100
-            },
-            {
-                "region": "East",
-                "quarter": "Q2",
+                "month": "Jan",
+                "category": "Food",
                 "sales": 120
             },
             {
-                "region": "East",
-                "quarter": "Q3",
-                "sales": 90
+                "month": "Jan",
+                "category": "Books",
+                "sales": 45
             },
             {
-                "region": "East",
-                "quarter": "Q4",
-                "sales": 130
+                "month": "Jan",
+                "category": "Sports",
+                "sales": 70
             },
             {
-                "region": "West",
-                "quarter": "Q1",
-                "sales": 60
+                "month": "Jan",
+                "category": "Home",
+                "sales": 95
             },
             {
-                "region": "West",
-                "quarter": "Q2",
+                "month": "Feb",
+                "category": "Electronics",
+                "sales": 180
+            },
+            {
+                "month": "Feb",
+                "category": "Clothing",
+                "sales": 110
+            },
+            {
+                "month": "Feb",
+                "category": "Food",
+                "sales": 135
+            },
+            {
+                "month": "Feb",
+                "category": "Books",
+                "sales": 55
+            },
+            {
+                "month": "Feb",
+                "category": "Sports",
+                "sales": 85
+            },
+            {
+                "month": "Feb",
+                "category": "Home",
                 "sales": 100
             },
             {
-                "region": "West",
-                "quarter": "Q3",
-                "sales": 80
+                "month": "Mar",
+                "category": "Electronics",
+                "sales": 200
             },
             {
-                "region": "West",
-                "quarter": "Q4",
+                "month": "Mar",
+                "category": "Clothing",
+                "sales": 140
+            },
+            {
+                "month": "Mar",
+                "category": "Food",
+                "sales": 125
+            },
+            {
+                "month": "Mar",
+                "category": "Books",
+                "sales": 60
+            },
+            {
+                "month": "Mar",
+                "category": "Sports",
                 "sales": 110
+            },
+            {
+                "month": "Mar",
+                "category": "Home",
+                "sales": 130
+            },
+            {
+                "month": "Apr",
+                "category": "Electronics",
+                "sales": 165
+            },
+            {
+                "month": "Apr",
+                "category": "Clothing",
+                "sales": 160
+            },
+            {
+                "month": "Apr",
+                "category": "Food",
+                "sales": 140
+            },
+            {
+                "month": "Apr",
+                "category": "Books",
+                "sales": 50
+            },
+            {
+                "month": "Apr",
+                "category": "Sports",
+                "sales": 145
+            },
+            {
+                "month": "Apr",
+                "category": "Home",
+                "sales": 115
+            },
+            {
+                "month": "May",
+                "category": "Electronics",
+                "sales": 220
+            },
+            {
+                "month": "May",
+                "category": "Clothing",
+                "sales": 130
+            },
+            {
+                "month": "May",
+                "category": "Food",
+                "sales": 155
+            },
+            {
+                "month": "May",
+                "category": "Books",
+                "sales": 75
+            },
+            {
+                "month": "May",
+                "category": "Sports",
+                "sales": 170
+            },
+            {
+                "month": "May",
+                "category": "Home",
+                "sales": 140
             }
         ]
     },
     "mark": "bar",
     "encoding": {
         "x": {
-            "field": "region",
+            "field": "category",
             "type": "ordinal",
             "axis": {
-                "title": "Region",
+                "title": "Product Category",
                 "labelColor": "#333333",
-                "tickCount": 4
+                "tickCount": 6
             }
         },
         "z": {
-            "field": "quarter",
+            "field": "month",
             "type": "ordinal",
             "axis": {
-                "title": "Quarter",
+                "title": "Month",
                 "labelColor": "#333333",
-                "tickCount": 4
+                "tickCount": 5
             }
         },
         "y": {
@@ -124,7 +194,7 @@
             }
         },
         "color": {
-            "field": "quarter",
+            "field": "category",
             "type": "nominal"
         }
     }
